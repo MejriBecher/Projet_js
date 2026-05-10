@@ -1,0 +1,28 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# OpenCode — keep agents, ignore auth and local config
+.opencode/auth.json
+.opencode/settings.local.json
+.opencode/*.log
+
+# GSD — keep all state files (they are shared project knowledge)
+# nothing to ignore in .planning/
+
+# Env and secrets
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+dist/
+build/
+
+# Logs
+*.log
+logs/

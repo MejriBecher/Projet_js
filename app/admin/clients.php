@@ -5,6 +5,8 @@ $success = '';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    if (!verify_csrf($_POST['_csrf'] ?? '')) { $error = 'Invalid session. Please try again.'; }
+    else {
     $id = (int)($_POST['id'] ?? 0);
     try {
         if ($_POST['action'] === 'toggle_active') {
@@ -13,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $success = 'User status toggled.';
         }
     } catch (PDOException $e) { log_error("Admin clients error: " . $e->getMessage()); $error = 'Database error.'; }
+    }
 }
 
 $users = $pdo->query("SELECT id, name, email, role, is_active, created_at FROM users ORDER BY created_at DESC")->fetchAll();
@@ -37,6 +40,7 @@ $users = $pdo->query("SELECT id, name, email, role, is_active, created_at FROM u
     <td>
         <?php if ($u['role'] !== 'admin'): ?>
         <form method="post" style="display:inline">
+            <input type="hidden" name="_csrf" value="<?= csrf_token() ?>">
             <input type="hidden" name="action" value="toggle_active">
             <input type="hidden" name="id" value="<?= (int)$u['id'] ?>">
             <button type="submit" class="btn btn-sm <?= $u['is_active'] ? 'btn-danger' : 'btn-success' ?>">

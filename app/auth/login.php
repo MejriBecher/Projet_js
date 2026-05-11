@@ -5,6 +5,8 @@ require_once __DIR__ . '/../config/database.php';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!verify_csrf($_POST['_csrf'] ?? '')) { $error = 'Invalid session. Please try again.'; }
+    else {
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
@@ -38,11 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Something went wrong. Please try again.';
         }
     }
+    }
 }
 ?>
 <h1>Login</h1>
 <form method="post" class="form">
     <?php if ($error): ?><div class="flash flash-error"><?= escape($error) ?></div><?php endif; ?>
+    <input type="hidden" name="_csrf" value="<?= csrf_token() ?>">
     <div class="form-group">
         <label for="email">Email</label>
         <input type="email" name="email" id="email" required>

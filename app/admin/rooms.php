@@ -22,6 +22,8 @@ function upload_image(array $file, string $subdir): ?string {
 
 // Handle POST actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    if (!verify_csrf($_POST['_csrf'] ?? '')) { $error = 'Invalid session. Please try again.'; }
+    else {
     $id = (int)($_POST['id'] ?? 0);
     try {
         if ($_POST['action'] === 'create' || $_POST['action'] === 'update') {
@@ -60,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $success = 'Room deleted.';
         }
     } catch (PDOException $e) { log_error("Admin rooms error: " . $e->getMessage()); $error = 'Database error.'; }
+    }
 }
 
 // Load edit data
@@ -77,6 +80,7 @@ $rooms = $pdo->query("SELECT * FROM rooms ORDER BY created_at DESC")->fetchAll()
 
 <h2><?= $edit_room ? 'Edit Room' : 'Add Room' ?></h2>
 <form method="post" enctype="multipart/form-data" class="form" style="max-width:600px">
+    <input type="hidden" name="_csrf" value="<?= csrf_token() ?>">
     <input type="hidden" name="action" value="<?= $edit_room ? 'update' : 'create' ?>">
     <?php if ($edit_room): ?><input type="hidden" name="id" value="<?= (int)$edit_room['id'] ?>"><?php endif; ?>
     <div class="form-group">
@@ -135,6 +139,7 @@ $rooms = $pdo->query("SELECT * FROM rooms ORDER BY created_at DESC")->fetchAll()
     <td>
         <a href="?edit=<?= (int)$r['id'] ?>" class="btn btn-sm">Edit</a>
         <form method="post" style="display:inline" onsubmit="return confirm('Delete this room?')">
+            <input type="hidden" name="_csrf" value="<?= csrf_token() ?>">
             <input type="hidden" name="action" value="delete">
             <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
             <button type="submit" class="btn btn-sm btn-danger">Delete</button>

@@ -1,5 +1,11 @@
 \# PROJECT RULES — READ BEFORE DOING ANYTHING
 
+## Hotel Identity
+
+- **Name:** Azur Cove Hotel
+- **Tagline:** *Where the Sea Meets Serenity*
+- **Theme:** Coastal & fresh — navy, sky blue, sand, linen white
+
 
 
 \## Git Rules — Non-Negotiable
@@ -115,4 +121,44 @@ There are 3 phases:
 
 
 If the user has not pasted a phase prompt yet, ask them which phase you are in before doing anything.
+
+## Design System
+
+### CSS Variables — defined in `assets/css/style.css`
+
+- `--navy` (#0C3B5E), `--ocean` (#1A6A9A), `--sky` (#7EC8E3)
+- `--mist` (#E8F4FD), `--sand` (#D4A96A), `--linen` (#FAF6F0), `--charcoal` (#2C2C2A)
+- `--font-heading`: 'Playfair Display', serif / `--font-body`: 'Inter', sans-serif
+
+### Typography & Color Rules
+
+- Headings (h1–h3, room titles, hotel name): `var(--font-heading)`, color `--navy`
+- Body, labels, forms, buttons: `var(--font-body)`
+- Page background: `--linen`
+- Primary button: bg `--navy`, text white, hover bg `--ocean`
+- Accent / price badges: bg `--sand`, text `--charcoal`
+- Nav bar: bg `--navy`, links white, active link color `--sky`
+- Max content width: `1100px`, centered with `margin: 0 auto`
+- Room cards: white bg, `border-radius: var(--radius-lg)`, `box-shadow: 0 2px 12px rgba(12,59,94,0.08)`
+
+### Seed Image URLs
+
+Rooms:
+- Deluxe Ocean View → `https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80`
+- Standard Double → `https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80`
+- Family Suite → `https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80`
+- Premium Penthouse → `https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80`
+
+Services:
+- Breakfast → `https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=800&q=80`
+- Transfer → `https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80`
+- Spa → `https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80`
+
+Hero: `https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=85`
+Exterior: `https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1400&q=85`
+
+### Admin
+
+- `admin@azurcove.com` / `admin123`
+- Name: Azur Admin
 

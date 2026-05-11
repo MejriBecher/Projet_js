@@ -16,18 +16,32 @@
 ### Admin Journey
 2. Login → Dashboard → Manage Rooms (CRUD + images) → Manage Services (CRUD + images) → Manage Reservations (change status) → Manage Clients (deactivate) → View Statistics (Chart.js)
 
+## Brand Identity
+
+- **Name:** Azur Cove Hotel
+- **Tagline:** *Where the Sea Meets Serenity*
+- **Theme:** Coastal & fresh — navy, sky blue, sand, linen white
+- **Login:** `admin@azurcove.com` / `admin123`
+
+## Design System
+
+- **CSS Variables:** `--navy`, `--ocean`, `--sky`, `--mist`, `--sand`, `--linen`, `--charcoal` in `assets/css/style.css`
+- **Fonts:** Playfair Display (headings) + Inter (body) via Google Fonts CDN
+- **Components:** Navy navbar, linen page bg, sand accent, radius variables, card shadow using navy rgba
+- **Seed images:** Unsplash URLs for rooms (4/5) and services (3/5), external URLs stored in `image` column
+
 ## ARCHITECTURE
 
 ```
 Projet_js/
 ├── .planning/
 ├── .gitignore
-├── AGENTS.md
+├── AGENTS.md               # Project rules + brand identity + design system
 ├── PROJECT_MAP.md          # Live state
 ├── README.md
 ├── index.php               # Homepage — room listing
 ├── schema.sql              # Full DB schema (6 tables)
-├── seed.sql                # Sample rooms + services
+├── seed.sql                # Sample rooms + services (with Unsplash image URLs)
 ├── setup.php               # Create admin user with bcrypt
 ├── app/
 │   ├── config/
@@ -95,6 +109,8 @@ Projet_js/
 | filter.js | code | ⬜ Phase 2 |
 | booking.js | code | ⬜ Phase 3 |
 | admin-charts.js | code | ⬜ Phase 4 |
+| Seed images changed from file-upload to external Unsplash URLs | seed | ✅ Updated in seed.sql |
+| Admin login changed from admin@hotel.com to admin@azurcove.com | config | ✅ Updated in setup.php + seed.sql |
 
 ## Key Decisions
 | Decision | Rationale | Outcome |

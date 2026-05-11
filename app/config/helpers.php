@@ -7,6 +7,12 @@ function escape(string $val): string {
     return htmlspecialchars($val, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 }
 
+function image_url(?string $path): string {
+    if ($path === null || $path === '') return '';
+    if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) return $path;
+    return '/' . $path;
+}
+
 function redirect(string $url): void {
     header("Location: $url");
     exit;

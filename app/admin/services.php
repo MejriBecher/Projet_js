@@ -93,7 +93,7 @@ $services = $pdo->query("SELECT * FROM services ORDER BY created_at DESC")->fetc
         <label>Image (JPG/PNG/WEBP, max 5MB)</label>
         <input type="file" name="image" accept="image/jpeg,image/png,image/webp">
         <?php if ($edit_service && $edit_service['image']): ?>
-            <p><img src="/<?= escape($edit_service['image']) ?>" style="max-width:100px;margin-top:5px"></p>
+            <p><img src="<?= image_url($edit_service['image']) ?>" style="max-width:100px;margin-top:5px"></p>
         <?php endif; ?>
     </div>
     <button type="submit" class="btn"><?= $edit_service ? 'Update' : 'Create' ?> Service</button>
@@ -108,7 +108,7 @@ $services = $pdo->query("SELECT * FROM services ORDER BY created_at DESC")->fetc
 <?php foreach ($services as $s): ?>
 <tr>
     <td><?= (int)$s['id'] ?></td>
-    <td><?php if ($s['image']): ?><img src="/<?= escape($s['image']) ?>" style="width:60px;height:40px;object-fit:cover"><?php endif; ?></td>
+    <td><?php if ($s['image']): ?><img src="<?= image_url($s['image']) ?>" style="width:60px;height:40px;object-fit:cover"><?php endif; ?></td>
     <td><?= escape($s['name']) ?></td>
     <td>$<?= number_format($s['price'], 2) ?></td>
     <td>

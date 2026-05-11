@@ -112,7 +112,7 @@ $rooms = $pdo->query("SELECT * FROM rooms ORDER BY created_at DESC")->fetchAll()
         <label>Image (JPG/PNG/WEBP, max 5MB)</label>
         <input type="file" name="image" accept="image/jpeg,image/png,image/webp">
         <?php if ($edit_room && $edit_room['image']): ?>
-            <p><img src="/<?= escape($edit_room['image']) ?>" style="max-width:100px;margin-top:5px"></p>
+            <p><img src="<?= image_url($edit_room['image']) ?>" style="max-width:100px;margin-top:5px"></p>
         <?php endif; ?>
     </div>
     <div class="form-group">
@@ -130,7 +130,7 @@ $rooms = $pdo->query("SELECT * FROM rooms ORDER BY created_at DESC")->fetchAll()
 <?php foreach ($rooms as $r): ?>
 <tr>
     <td><?= (int)$r['id'] ?></td>
-    <td><?php if ($r['image']): ?><img src="/<?= escape($r['image']) ?>" style="width:60px;height:40px;object-fit:cover"><?php endif; ?></td>
+    <td><?php if ($r['image']): ?><img src="<?= image_url($r['image']) ?>" style="width:60px;height:40px;object-fit:cover"><?php endif; ?></td>
     <td><?= escape($r['name']) ?></td>
     <td><?= escape(ucfirst($r['type'])) ?></td>
     <td>$<?= number_format($r['price'], 2) ?></td>

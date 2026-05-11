@@ -27,7 +27,7 @@ try {
     <div class="room-card" data-type="<?= escape($room['type']) ?>" data-price="<?= (int)$room['price'] ?>">
         <div class="room-img">
             <?php if ($room['image']): ?>
-                <img src="/<?= escape($room['image']) ?>" alt="<?= escape($room['name']) ?>">
+                <img src="<?= image_url($room['image']) ?>" alt="<?= escape($room['name']) ?>">
             <?php else: ?>
                 <div class="room-img-placeholder">No Image</div>
             <?php endif; ?>

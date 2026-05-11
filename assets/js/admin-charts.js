@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 type: 'bar',
                 data: {
                     labels: d.revenue.labels,
-                    datasets: [{ label: 'Revenue ($)', data: d.revenue.data, backgroundColor: '#1a1a2e' }]
+                    datasets: [{ label: 'Revenue ($)', data: d.revenue.data, backgroundColor: '#0C3B5E' }]
                 },
                 options: { responsive: true, plugins: { legend: { display: false } } }
             });

@@ -3,9 +3,9 @@
 // php setup.php
 require_once __DIR__ . '/app/config/database.php';
 
-$email = 'admin@hotel.com';
+$email = 'admin@azurcove.com';
 $password = 'admin123';
-$name = 'Admin';
+$name = 'Azur Admin';
 
 $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
 $stmt->execute([$email]);

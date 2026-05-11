@@ -8,14 +8,14 @@ require_admin();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — Hotel Reservation</title>
-<link rel="stylesheet" href="/assets/css/style.css">
+<title>Admin — Azur Cove Hotel</title>
+<link rel="stylesheet" href="/assets/css/style.css?v=1">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <div class="admin-wrap">
     <aside class="admin-sidebar">
-        <h2><a href="/app/admin/index.php" class="brand">Admin</a></h2>
+        <h2><a href="/app/admin/index.php" class="brand">Azur Cove — Admin</a></h2>
         <ul>
             <li><a href="/app/admin/index.php">Dashboard</a></li>
             <li><a href="/app/admin/rooms.php">Rooms</a></li>

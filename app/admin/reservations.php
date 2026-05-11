@@ -6,6 +6,8 @@ $error = '';
 
 // Status update
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    if (!verify_csrf($_POST['_csrf'] ?? '')) { $error = 'Invalid session. Please try again.'; }
+    else {
     $id = (int)($_POST['id'] ?? 0);
     try {
         if ($_POST['action'] === 'update_status') {
@@ -18,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             }
         }
     } catch (PDOException $e) { log_error("Admin reservation update error: " . $e->getMessage()); $error = 'Database error.'; }
+    }
 }
 
 $reservations = $pdo->query("
@@ -49,6 +52,7 @@ $reservations = $pdo->query("
     <td>$<?= number_format($r['total_price'], 2) ?></td>
     <td>
         <form method="post" style="display:flex;gap:5px;align-items:center">
+            <input type="hidden" name="_csrf" value="<?= csrf_token() ?>">
             <input type="hidden" name="action" value="update_status">
             <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
             <select name="status" class="badge badge-<?= escape($r['status']) ?>" onchange="this.form.submit()">

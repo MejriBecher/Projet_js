@@ -15,6 +15,8 @@ if ($room_id) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!verify_csrf($_POST['_csrf'] ?? '')) { $error = 'Invalid session. Please try again.'; }
+    else {
     $room_id = (int)($_POST['room_id'] ?? 0);
     $check_in = $_POST['check_in'] ?? '';
     $check_out = $_POST['check_out'] ?? '';
@@ -54,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Something went wrong. Please try again.';
         }
     }
+    }
 }
 
 $stmt = $pdo->query("SELECT id, name, type, price, capacity, image FROM rooms WHERE is_available = 1 ORDER BY name");
@@ -62,6 +65,7 @@ $rooms = $stmt->fetchAll();
 <h1>Book a Room</h1>
 <?php if ($error): ?><div class="flash flash-error"><?= escape($error) ?></div><?php endif; ?>
 <form method="post" class="form" id="booking-form" style="max-width:500px">
+    <input type="hidden" name="_csrf" value="<?= csrf_token() ?>">
     <div class="form-group">
         <label for="room_id">Room</label>
         <select name="room_id" id="room_id" required>

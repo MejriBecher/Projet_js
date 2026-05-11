@@ -21,6 +21,8 @@ function upload_image(array $file, string $subdir): ?string {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    if (!verify_csrf($_POST['_csrf'] ?? '')) { $error = 'Invalid session. Please try again.'; }
+    else {
     $id = (int)($_POST['id'] ?? 0);
     try {
         if ($_POST['action'] === 'create' || $_POST['action'] === 'update') {
@@ -55,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $success = 'Service deleted.';
         }
     } catch (PDOException $e) { log_error("Admin services error: " . $e->getMessage()); $error = 'Database error.'; }
+    }
 }
 
 if (isset($_GET['edit'])) {
@@ -71,6 +74,7 @@ $services = $pdo->query("SELECT * FROM services ORDER BY created_at DESC")->fetc
 
 <h2><?= $edit_service ? 'Edit Service' : 'Add Service' ?></h2>
 <form method="post" enctype="multipart/form-data" class="form" style="max-width:600px">
+    <input type="hidden" name="_csrf" value="<?= csrf_token() ?>">
     <input type="hidden" name="action" value="<?= $edit_service ? 'update' : 'create' ?>">
     <?php if ($edit_service): ?><input type="hidden" name="id" value="<?= (int)$edit_service['id'] ?>"><?php endif; ?>
     <div class="form-group">
@@ -110,6 +114,7 @@ $services = $pdo->query("SELECT * FROM services ORDER BY created_at DESC")->fetc
     <td>
         <a href="?edit=<?= (int)$s['id'] ?>" class="btn btn-sm">Edit</a>
         <form method="post" style="display:inline" onsubmit="return confirm('Delete this service?')">
+            <input type="hidden" name="_csrf" value="<?= csrf_token() ?>">
             <input type="hidden" name="action" value="delete">
             <input type="hidden" name="id" value="<?= (int)$s['id'] ?>">
             <button type="submit" class="btn btn-sm btn-danger">Delete</button>

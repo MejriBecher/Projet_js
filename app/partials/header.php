@@ -9,13 +9,16 @@ unset($_SESSION['_old']);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hotel Reservation System</title>
-<link rel="stylesheet" href="/assets/css/style.css">
+<title>Azur Cove Hotel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css?v=1">
 </head>
 <body>
 <nav class="navbar">
     <div class="container">
-        <a href="/index.php" class="brand">Hotel Reservation</a>
+        <a href="/index.php" class="brand">Azur Cove Hotel</a>
         <ul class="nav-links">
             <li><a href="/index.php">Rooms</a></li>
             <?php if (!empty($_SESSION['user_id'])): ?>

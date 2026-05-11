@@ -87,37 +87,37 @@ Deferred to future release:
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | | Pending |
-| AUTH-02 | | Pending |
-| AUTH-03 | | Pending |
-| AUTH-04 | | Pending |
-| ROOM-01 | | Pending |
-| ROOM-02 | | Pending |
-| RSRV-01 | | Pending |
-| RSRV-02 | | Pending |
-| RSRV-03 | | Pending |
-| PROF-01 | | Pending |
-| ADMN-ROOM-01 | | Pending |
-| ADMN-ROOM-02 | | Pending |
-| ADMN-SERV-01 | | Pending |
-| ADMN-SERV-02 | | Pending |
-| ADMN-RSRV-01 | | Pending |
-| ADMN-RSRV-02 | | Pending |
-| ADMN-CLNT-01 | | Pending |
-| ADMN-CLNT-02 | | Pending |
-| ADMN-STAT-01 | | Pending |
-| ADMN-STAT-02 | | Pending |
-| ADMN-STAT-03 | | Pending |
-| UI-01 | | Pending |
-| UI-02 | | Pending |
-| UI-03 | | Pending |
-| UI-04 | | Pending |
-| UI-05 | | Pending |
+| AUTH-01 | Phase 1 | Pending |
+| AUTH-02 | Phase 1 | Pending |
+| AUTH-03 | Phase 1 | Pending |
+| AUTH-04 | Phase 1 | Pending |
+| ROOM-01 | Phase 2 | Pending |
+| ROOM-02 | Phase 2 | Pending |
+| RSRV-01 | Phase 3 | Pending |
+| RSRV-02 | Phase 3 | Pending |
+| RSRV-03 | Phase 3 | Pending |
+| PROF-01 | Phase 3 | Pending |
+| ADMN-ROOM-01 | Phase 2 | Pending |
+| ADMN-ROOM-02 | Phase 2 | Pending |
+| ADMN-SERV-01 | Phase 2 | Pending |
+| ADMN-SERV-02 | Phase 2 | Pending |
+| ADMN-RSRV-01 | Phase 4 | Pending |
+| ADMN-RSRV-02 | Phase 4 | Pending |
+| ADMN-CLNT-01 | Phase 4 | Pending |
+| ADMN-CLNT-02 | Phase 4 | Pending |
+| ADMN-STAT-01 | Phase 4 | Pending |
+| ADMN-STAT-02 | Phase 4 | Pending |
+| ADMN-STAT-03 | Phase 4 | Pending |
+| UI-01 | Phase 5 | Pending |
+| UI-02 | Phase 3 | Pending |
+| UI-03 | Phase 3 | Pending |
+| UI-04 | Phase 1 | Pending |
+| UI-05 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 26 total
-- Mapped to phases: 0
-- Unmapped: 26 ⚠️
+- Mapped to phases: 26
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-05-11*

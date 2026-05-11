@@ -31,4 +31,4 @@ require_once __DIR__ . '/partials/admin_header.php';
         <canvas id="chart-status"></canvas>
     </div>
 </div>
-<?php require_once __DIR__ . '/../partials/footer.php'; ?>
+<?php require_once __DIR__ . '/partials/admin_footer.php'; ?>

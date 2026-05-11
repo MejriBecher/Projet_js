@@ -9,6 +9,7 @@ require_admin();
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — Hotel Reservation</title>
 <link rel="stylesheet" href="/assets/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <div class="admin-wrap">
@@ -31,3 +32,4 @@ require_admin();
     if ($flash): ?>
     <div class="flash flash-<?= $flash['type'] ?>"><?= escape($flash['message']) ?></div>
     <?php endif; ?>
+<script src="/assets/js/admin-charts.js"></script>

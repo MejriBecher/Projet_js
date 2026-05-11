@@ -145,4 +145,4 @@ $rooms = $pdo->query("SELECT * FROM rooms ORDER BY created_at DESC")->fetchAll()
 </tbody>
 </table>
 </div>
-<?php require_once __DIR__ . '/../partials/footer.php'; ?>
+<?php require_once __DIR__ . '/partials/admin_footer.php'; ?>

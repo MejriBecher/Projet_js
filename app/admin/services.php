@@ -120,4 +120,4 @@ $services = $pdo->query("SELECT * FROM services ORDER BY created_at DESC")->fetc
 </tbody>
 </table>
 </div>
-<?php require_once __DIR__ . '/../partials/footer.php'; ?>
+<?php require_once __DIR__ . '/partials/admin_footer.php'; ?>

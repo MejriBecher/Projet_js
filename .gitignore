@@ -2,13 +2,10 @@
 .DS_Store
 Thumbs.db
 
-# OpenCode — keep agents, ignore auth and local config
-.opencode/auth.json
-.opencode/settings.local.json
-.opencode/*.log
-
-# GSD — keep all state files (they are shared project knowledge)
-# nothing to ignore in .planning/
+# Agent / planning artifacts
+agents.md
+.planning/
+.opencode/
 
 # Env and secrets
 .env

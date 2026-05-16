@@ -11,7 +11,7 @@
 ## SYSTEM_FLOW
 
 ### User Journey
-1. Register → Login → Browse Rooms → Filter by type/price → Select room → Book with date range → View reservation in profile → Logout
+1. Register → Login → Browse Rooms → Filter by type/price → Select room → Book with date range → Choose payment method → View reservation in profile → Logout
 
 ### Admin Journey
 2. Login → Dashboard → Manage Rooms (CRUD + images) → Manage Services (CRUD + images) → Manage Reservations (change status) → Manage Clients (deactivate) → View Statistics (Chart.js)
@@ -34,14 +34,18 @@
 
 ```
 Projet_js/
-├── .planning/
 ├── .gitignore
-├── AGENTS.md               # Project rules + brand identity + design system
-├── PROJECT_MAP.md          # Live state
+├── PROJECT_MAP.md          # Project architecture & decisions
 ├── README.md
-├── index.php               # Homepage — room listing
-├── schema.sql              # Full DB schema (6 tables)
-├── seed.sql                # Sample rooms + services (with Unsplash image URLs)
+├── index.php               # Homepage — room listing (VIP filter + badge)
+├── room.php                # Room detail page (id=X, VIP badge for vip rooms)
+├── reserve.php             # Booking form → validates dates → stores in session → redirects to payment.php
+├── payment.php             # Payment method selection → inserts reservation → redirects to booking_confirmation.php
+├── booking_confirmation.php # Post-booking summary with session contract
+├── services.php            # Services catalog (public)
+├── about.php               # Static about/contact page
+├── schema.sql              # Full DB schema (6+ tables, payment_method column)
+├── seed.sql                # Sample rooms + services (all with images, 2 VIP rooms)
 ├── setup.php               # Create admin user with bcrypt
 ├── app/
 │   ├── config/
@@ -84,20 +88,9 @@ Projet_js/
     └── app.log             # Error log
 ```
 
-## PHASE STATUS
-
-| # | Phase | Status | Milestone |
-|---|-------|--------|-----------|
-| 1 | Foundation & Authentication | ✅ COMPLETE | Register, Login, Logout, Admin gate, Helpers |
-| 2 | Room & Service Management | ⬜ Pending | Room listing + filter, admin CRUD + upload |
-| 3 | Reservations & User Profile | ⬜ Pending | Booking flow, double-booking guard, profile |
-| 4 | Admin Dashboard & Management | ⬜ Pending | Reservation/user mgmt, Chart.js stats |
-| 5 | Polish & Cross-cutting | ⬜ Pending | Responsive layout, edge cases |
-
-## ORPHANS & PENDING
+## PENDING
 
 | Item | Type | Status |
-|------|------|--------|
 | PHP/MySQL not on local PATH | env | ⚠️ Verify on deployment |
 | app/rooms/ directory | code | ⬜ Phase 2 |
 | app/reservations/ directory | code | ⬜ Phase 3 |
@@ -109,8 +102,49 @@ Projet_js/
 | filter.js | code | ⬜ Phase 2 |
 | booking.js | code | ⬜ Phase 3 |
 | admin-charts.js | code | ⬜ Phase 4 |
+| app/reservations/create.php | code | 🗑️ Orphan — replaced by reserve.php + payment.php (kept for backward compat) |
 | Seed images changed from file-upload to external Unsplash URLs | seed | ✅ Updated in seed.sql |
 | Admin login changed from admin@hotel.com to admin@azurcove.com | config | ✅ Updated in setup.php + seed.sql |
+| VIP rooms (2) added with gold badge on cards + detail page | seed | ✅ VIP Ocean Suite + VIP Royal Penthouse |
+| Image fallback: default Unsplash URL for any room/service without image | views | ✅ Applied in index.php, room.php, services.php |
+| Image required on create for admin rooms/services forms | admin | ✅ required attribute + PHP error |
+| Payment method page splits reservation flow into two steps | flow | ✅ reserve.php → payment.php → booking_confirmation.php |
+| payment_method column added to reservations table | schema | ✅ ENUM('card','cash','transfer') DEFAULT 'cash' |
+| Session contract: $_SESSION['pending_reservation'] for multi-step booking | flow | ✅ Documented in [ARCHITECTURE] |
+| Card number formatting via main.js | assets | ✅ Auto-spaces every 4 digits on payment page |
+
+## Reservation Flow (Updated)
+
+```
+room.php/index.php (Book This Room)
+    ↓
+reserve.php (form: room select, dates, optional services)
+    ↓  POST → validate dates, check availability (FOR UPDATE), store in $_SESSION['pending_reservation']
+payment.php (read-only summary from session, choose payment method)
+    ↓  POST → INSERT into reservations + reservation_services, set $_SESSION['last_reservation_id']
+booking_confirmation.php (summary from DB)
+```
+
+### Session Contract: `$_SESSION['pending_reservation']`
+
+```php
+[
+    'room_id'     => int,
+    'room_name'   => string,
+    'room_type'   => string,
+    'check_in'    => string (Y-m-d),
+    'check_out'   => string (Y-m-d),
+    'nights'      => int,
+    'room_price'  => float,
+    'total_price' => float,    // room_price * nights
+    'services'    => [         // empty array if none
+        ['id' => int, 'name' => string, 'price' => float],
+        ...
+    ],
+]
+```
+
+This contract is set in `reserve.php` POST handler and consumed in `payment.php`. It is unset after successful DB insert.
 
 ## Key Decisions
 | Decision | Rationale | Outcome |
